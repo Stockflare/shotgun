@@ -11,7 +11,7 @@ module Shotgun
     end
 
     def run
-      fork &method(:main)
+      main
     rescue Interrupt
     end
 
