@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require "shotgun/cli"
+Shotgun::CLI.new(ARGV).run
