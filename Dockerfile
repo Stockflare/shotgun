@@ -8,4 +8,4 @@ ONBUILD ADD ./ /stockflare
 
 ONBUILD RUN bundle install
 
-ENTRYPOINT ["shotgun"]
+# ENTRYPOINT ["shotgun"]

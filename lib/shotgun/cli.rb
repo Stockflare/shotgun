@@ -30,8 +30,8 @@ module Shotgun
     def configure_zone!
       zone = argv.index('-zone')
       return ENV['HOSTED_ZONE'] unless zone
-      argv.delete_at zone
-      Shotgun.set zone
+      argv.delete_at(zone)
+      Shotgun.zone = argv.delete_at(zone)
     end
 
     def error(message)
