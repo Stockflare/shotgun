@@ -66,3 +66,11 @@ admin.update({ name: "David" })
 ```
 
 This will map this call to an associated micro-service endpoint, using the CRUD standard for updating an instrument.
+
+### Development
+
+If you want to network services during development, you can override DNS Discovery by providing a hardcoded Environment variable, matching the following structure:
+
+Given a service available at `etcd.vpc-private-domain.com`, the variable would be `SERVICE_ETCD_URL`
+
+Given a service available at `admin.internal.vpc-private-domain.com`, that variable would be `SERVICE_ADMIN_INTERNAL_URL`.
