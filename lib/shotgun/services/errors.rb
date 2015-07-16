@@ -7,6 +7,7 @@ module Shotgun
       # to different HTTP Status Code responses.
 
       autoload :HttpError, 'shotgun/services/errors/http_error'
+      autoload :ConnectionError, 'shotgun/services/errors/connection_error'
 
     end
   end

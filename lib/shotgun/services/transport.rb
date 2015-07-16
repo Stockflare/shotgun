@@ -141,13 +141,15 @@ module Shotgun
           req.params = body if get?
           req.body = body unless get?
         end
+      rescue Faraday::ConnectionFailed => e
+        raise Errors::ConnectionError.new, "connection failed attempting to reach [#{method}] #{url}/#{path}"
       end
 
       def handler(response)
         if (200...300).include? response.status
           Response.new JSON.parse(response.body)
         else
-          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status} (#{method}: #{url}/#{path})"
+          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status} [#{method}] #{url}/#{path}"
         end
       end
 

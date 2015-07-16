@@ -36,6 +36,8 @@ describe Services do
 
       before { ENV['SERVICE_ETCD_URL'] = nil }
 
+      specify { puts subject.url.inspect }
+
       specify { expect(subject.url).to_not be_empty }
 
       specify { expect(subject.url).to eq "http://#{path}.#{zone}" }
