@@ -19,20 +19,6 @@ module Shotgun
 
       specify { expect(subject.b.c).to be_truthy }
 
-      describe 'an array response' do
-
-        let(:array) { [{ foo: 'bar' }, { bar: 'much_foo' }] }
-
-        let(:response) { Response.new array }
-
-        subject { response }
-
-        it { should respond_to(:each) }
-
-        specify { expect(subject.first).to eq({ foo: 'bar' }) }
-
-      end
-
       describe 'a nested array response' do
 
         let(:array) { { stacks: [test] * 4 } }
@@ -46,6 +32,20 @@ module Shotgun
         specify { expect(subject.stacks.first.a).to eq 1 }
 
         specify { expect(subject.stacks.first.b.c).to be_truthy }
+
+      end
+
+      describe 'a deep nested array response' do
+
+        let(:array) { { posts: [{ title: "foobar!", tags: ['business', { fruit: 'apple' }] }] } }
+
+        let(:array_response) { Response.new array }
+
+        subject { array_response }
+
+        specify { expect(subject.posts.first.tags.first).to eq 'business' }
+
+        specify { expect(subject.posts.first.tags.last.fruit).to eq 'apple' }
 
       end
 

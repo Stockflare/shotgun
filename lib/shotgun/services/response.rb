@@ -8,9 +8,9 @@ module Shotgun
 
       include Hashie::Extensions::MethodAccess
 
-      coerce_value Hash, Response
+      coerce_value Hash, Hashie::Mash
 
-      coerce_value Array, Array[Response]
+      coerce_value Array, Array[Hashie::Mash]
 
       def initialize(hash = {})
         super
