@@ -147,7 +147,7 @@ module Shotgun
         if (200...300).include? response.status
           Response.new JSON.parse(response.body)
         else
-          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status}"
+          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status} (#{method}: #{url}/#{path})"
         end
       end
 
