@@ -13,8 +13,12 @@ module Shotgun
       coerce_value Array, Array[Hashie::Mash]
 
       def initialize(hash = {})
-        super
-        hash.each_pair { |k,v| self[k] = v }
+        if hash.is_a? Hash
+          super
+          hash.each_pair { |k,v| self[k] = v }
+        else
+          Hashie::Mash.new hash
+        end
       end
 
     end

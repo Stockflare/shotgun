@@ -49,6 +49,14 @@ module Shotgun
 
       end
 
+      describe 'an array of hashes' do
+
+        let(:array) { [{ id: 1, tags: ["a", "b"] }, { id: 2, tags: ["c", "d"] }] }
+
+        specify { expect { array.collect { |arr| Hashie::Mash.new arr } }.to_not raise_error }
+
+      end
+
     end
   end
 end
