@@ -7,6 +7,8 @@ describe Services do
 
   specify { expect(Services::Some::Other::Service._path).to eq "service.other.some" }
 
+  specify { expect(Services.service(:some).service(:other).service(:service)._path).to eq "service.other.some" }
+
   describe 'a simple call transport receiver' do
 
     let(:path) { 'user' }

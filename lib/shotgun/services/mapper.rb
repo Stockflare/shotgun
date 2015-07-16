@@ -46,6 +46,10 @@ module Shotgun
           _parts.slice(1..._parts.length).reverse.join('.')
         end
 
+        def service(name)
+          const_get name.capitalize
+        end
+
         # When a constant is requested that is missing, this function builds
         # the desired constant, extending itself in a recursive manner,
         # facilitating dynamic micro-service definition.
