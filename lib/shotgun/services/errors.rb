@@ -8,6 +8,7 @@ module Shotgun
 
       autoload :HttpError, 'shotgun/services/errors/http_error'
       autoload :ConnectionError, 'shotgun/services/errors/connection_error'
+      autoload :ResponseError, 'shotgun/services/errors/response_error'
 
     end
   end

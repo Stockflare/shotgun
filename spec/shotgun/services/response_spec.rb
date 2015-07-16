@@ -21,6 +21,20 @@ module Shotgun
 
       describe 'an array response' do
 
+        let(:array) { [{ foo: 'bar' }, { bar: 'much_foo' }] }
+
+        let(:response) { Response.new array }
+
+        subject { response }
+
+        it { should respond_to(:each) }
+
+        specify { expect(subject.first).to eq({ foo: 'bar' }) }
+
+      end
+
+      describe 'a nested array response' do
+
         let(:array) { { stacks: [test] * 4 } }
 
         let(:array_response) { Response.new array }

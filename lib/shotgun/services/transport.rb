@@ -147,9 +147,17 @@ module Shotgun
 
       def handler(response)
         if (200...300).include? response.status
-          Response.new JSON.parse(response.body)
+          response = JSON.parse(response.body)
+          case response
+          when Hash
+            Response.new response
+          when Array
+            response.collect { |el| Response.new el }
+          else
+            raise Errors::ResponseError.new, "unexpected body of #{response.class.name}. [#{method}] #{url}/#{path}"
+          end
         else
-          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status} [#{method}] #{url}/#{path}"
+          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status}. [#{method}] #{url}/#{path}"
         end
       end
 
