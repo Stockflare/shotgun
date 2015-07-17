@@ -153,7 +153,7 @@ module Shotgun
             Response.new response
           when Array
             # mash array of responses
-            response.collect { |el| Hashie::Mash.new el }
+            response.collect { |el| Response.new el }
           else
             raise Errors::ResponseError.new, "unexpected body of #{response.class.name}. [#{method}] #{url}/#{path}"
           end
