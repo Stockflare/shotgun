@@ -1,4 +1,5 @@
 require 'faraday'
+require 'hashie'
 require 'json'
 
 module Shotgun
@@ -153,7 +154,7 @@ module Shotgun
             Response.new response
           when Array
             # mash array of responses
-            response.collect { |el| Response.new el }
+            response.collect { |el| ::Hashie::Mash.new el }
           else
             raise Errors::ResponseError.new, "unexpected body of #{response.class.name}. [#{method}] #{url}/#{path}"
           end
