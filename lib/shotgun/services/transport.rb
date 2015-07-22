@@ -1,6 +1,5 @@
 require 'faraday'
 require 'hashie'
-require 'json'
 
 module Shotgun
   class Services
@@ -81,6 +80,8 @@ module Shotgun
         end
       end
 
+      alias_method :call, :response
+
       # Returns true if the desired HTTP Method is a GET request.
       #
       # @return [boolean] true if GET, false otherwise
@@ -147,20 +148,7 @@ module Shotgun
       end
 
       def handler(response)
-        if (200...300).include? response.status
-          response = JSON.parse(response.body)
-          case response
-          when Hash
-            Response.new response
-          when Array
-            # mash array of responses
-            response.collect { |el| ::Hashie::Mash.new el }
-          else
-            raise Errors::ResponseError.new, "unexpected body of #{response.class.name}. [#{method}] #{url}/#{path}"
-          end
-        else
-          raise Errors::HttpError.new(response), "expected 2xx code, got #{response.status}. [#{method}] #{url}/#{path}"
-        end
+        Handler.new(response)
       end
 
       def domain

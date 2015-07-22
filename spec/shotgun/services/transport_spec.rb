@@ -36,8 +36,6 @@ describe Services do
 
       before { ENV['SERVICE_ETCD_URL'] = nil }
 
-      specify { puts subject.url.inspect }
-
       specify { expect(subject.url).to_not be_empty }
 
       specify { expect(subject.url).to eq "http://#{path}.#{zone}" }
@@ -74,7 +72,9 @@ describe Services do
 
     before { subject.update({ value: value }).response }
 
-    specify { expect(klass.new(:v2, :keys, key).get.response.node.value).to eq value }
+    specify { expect(klass.new(:v2, :keys, key).get.response.body.node.value).to eq value }
+
+    specify { expect(klass.new(:v2, :keys, key).get.response.headers['Content-Type']).to include "json" }
 
   end
 

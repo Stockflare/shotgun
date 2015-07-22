@@ -59,6 +59,7 @@ module Shotgun
     autoload :Mapper, 'shotgun/services/mapper'
     autoload :Transport, 'shotgun/services/transport'
     autoload :Response, 'shotgun/services/response'
+    autoload :Handler, 'shotgun/services/handler'
     autoload :Errors, 'shotgun/services/errors'
 
     include Mapper
