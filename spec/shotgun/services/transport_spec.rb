@@ -72,7 +72,7 @@ describe Services do
 
     before { subject.update({ value: value }).response }
 
-    specify { expect(klass.new(:v2, :keys, key).get.response.body.node.value).to eq value }
+    specify { expect(klass.new(:v2, :keys, key).get(recursive: true).response.body.node.value).to eq value }
 
     specify { expect(klass.new(:v2, :keys, key).get.response.headers['Content-Type']).to include "json" }
 

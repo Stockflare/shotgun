@@ -1,4 +1,5 @@
 require 'faraday'
+require 'rack'
 require 'hashie'
 
 module Shotgun
@@ -140,8 +141,11 @@ module Shotgun
 
       def request
         Faraday.new(url: url).send(method, path) do |req|
-          req.params = Faraday::Utils.parse_nested_query(body) if get?
-          req.body = body unless get?
+          req.body = if get?
+            Rack::Utils.build_nested_query(body)
+          else
+            body
+          end
         end
       rescue Faraday::ConnectionFailed => e
         raise Errors::ConnectionError.new, "connection failed attempting to reach [#{method}] #{url}/#{path}"
