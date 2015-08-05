@@ -140,7 +140,7 @@ module Shotgun
 
       def request
         Faraday.new(url: url).send(method, path) do |req|
-          req.params = body if get?
+          req.params = Faraday::Utils.parse_nested_query(body) if get?
           req.body = body unless get?
         end
       rescue Faraday::ConnectionFailed => e
