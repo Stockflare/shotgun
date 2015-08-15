@@ -41,6 +41,7 @@ module Shotgun
       #
       #   @option opts [symbol] :method (:get) The HTTP method to be executed.
       #   @option opts [symbol] :protocol (:http) The HTTP method to be used.
+      #   @option opts [hash] :headers ({}) Additional HTTP Headers
       #
       #   @return [hash] additional options that modify the request. Such as the
       #     HTTP method.
@@ -121,6 +122,15 @@ module Shotgun
         (opts[:method] || :get).to_s.downcase.to_sym
       end
 
+      # Returns a hash of additional headers to be sent along with the request.
+      #
+      # @note if no headers have been defined, an empty hash is returned.
+      #
+      # @return [hash] a hash of additional request headers
+      def headers
+        opts[:headers] || {}
+      end
+
       # Returns the protocol to be used as the request. For example, if using
       # shotgun to send requests to mysql, the protocol would become :mysql.
       #
@@ -141,6 +151,7 @@ module Shotgun
 
       def request
         Faraday.new(url: url).send(method, path) do |req|
+          req.headers.merge(headers)
           req.body = if get?
             Rack::Utils.build_nested_query(body)
           else

@@ -81,8 +81,8 @@ module Shotgun
         #   @return [Transport] an initialised transport instance
 
         { create: :post, get: :get }.each do |name, type|
-          define_method(name) do |attrs = {}, &block|
-            transport '/', attrs, method: type, &block
+          define_method(name) do |attrs = {}, opts = {}, &block|
+            transport '/', attrs, opts.merge(method: type), &block
           end
         end
 
@@ -95,8 +95,8 @@ module Shotgun
         # @yieldparam response [hash] A Hashie parsed response from the service.
         #
         # @return [{Transport}] an initialised transport instance.
-        def find(id, attrs = {}, &block)
-          transport id, attrs, method: :get, &block
+        def find(id, attrs = {}, opts = {}, &block)
+          transport id, attrs, opts.merge(method: type), &block
         end
 
         # When a missing method name is called on a micro-service class, it is
@@ -178,8 +178,8 @@ module Shotgun
         #   @yieldparam response [hash] A Hashie parsed response from the service.
 
         { update: :put, delete: :delete, get: :get }.each do |name, type|
-          define_method(name) do |attrs = {}, &block|
-            transport context, attrs, method: type, &block
+          define_method(name) do |attrs = {}, opts = {}, &block|
+            transport context, attrs, opts.merge(method: type), &block
           end
         end
 

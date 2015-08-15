@@ -70,7 +70,7 @@ describe Services do
 
     let(:value) { Faker::Internet.ip_v4_address }
 
-    before { subject.update({ value: value }).response }
+    before { subject.update({ value: value }, { headers: { 'X-Test' => 'some-test-value' } }).response }
 
     specify { expect(klass.new(:v2, :keys, key).get(recursive: true).response.body.node.value).to eq value }
 
