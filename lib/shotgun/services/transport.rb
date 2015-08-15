@@ -151,7 +151,7 @@ module Shotgun
 
       def request
         Faraday.new(url: url).send(method, path) do |req|
-          req.headers.merge(headers)
+          req.headers.merge!(headers)
           req.body = if get?
             Rack::Utils.build_nested_query(body)
           else
