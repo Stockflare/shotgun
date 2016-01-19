@@ -1,13 +1,13 @@
 module Shotgun
   class Services
-    describe Response do
+    describe "a response" do
 
       let(:test) { {
         a: 1,
         b: { c: true }
       } }
 
-      let(:response) { Response.new test }
+      let(:response) { Hashie::Mash.new test }
 
       subject { response }
 
@@ -23,7 +23,7 @@ module Shotgun
 
         let(:array) { { stacks: [test] * 4 } }
 
-        let(:array_response) { Response.new array }
+        let(:array_response) { Hashie::Mash.new array }
 
         subject { array_response }
 
@@ -39,7 +39,7 @@ module Shotgun
 
         let(:array) { { posts: [{ title: "foobar!", tags: ['business', { fruit: 'apple' }] }] } }
 
-        let(:array_response) { Response.new array }
+        let(:array_response) { Hashie::Mash.new array }
 
         subject { array_response }
 
@@ -53,7 +53,23 @@ module Shotgun
 
         let(:array) { [{ id: 1, tags: ["a", "b"] }, { id: 2, tags: ["c", "d"] }] }
 
+        let(:array_response) { { array: array } }
+
+        specify { expect { Hashie::Mash.new array_response }.to_not raise_error }
+
         specify { expect { array.collect { |arr| Hashie::Mash.new arr } }.to_not raise_error }
+
+      end
+
+      describe 'an array of strings' do
+
+        let(:indices_response) { { indices: ('a'..'z').to_a } }
+
+        subject { Hashie::Mash.new indices_response }
+
+        specify { expect(subject.indices.first).to eq 'a' }
+
+        specify { expect(subject.indices.last).to eq 'z' }
 
       end
 

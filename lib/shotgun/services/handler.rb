@@ -37,7 +37,7 @@ module Shotgun
         response = as_json body
         case response
         when Hash
-          Response.new response
+          ::Hashie::Mash.new response
         when Array
           response.collect { |el| ::Hashie::Mash.new el }
         else

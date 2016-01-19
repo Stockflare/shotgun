@@ -56,7 +56,7 @@ module Shotgun
 
         def response
           if !body.empty?
-            Response.new json_body
+            Hashie::Mash.new json_body
           else
             {}
           end

@@ -56,7 +56,7 @@ describe Services do
 
     specify { expect { subject.update({ value: value }).response }.to raise_error { |ex| expect(ex.code).to eq 404 } }
 
-    specify { expect { subject.update({ value: value }).response }.to raise_error { |ex| expect(ex.response).to be_an_instance_of Shotgun::Services::Response } }
+    specify { expect { subject.update({ value: value }).response }.to raise_error { |ex| expect(ex.response).to be_an_instance_of Hashie::Mash } }
 
     specify { expect { subject.update({ value: value }).response }.to raise_error(/404/) }
 
