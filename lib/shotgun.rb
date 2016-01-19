@@ -8,18 +8,8 @@ module Shotgun
     Path.new(*_).to_url
   end
 
-  def self.alias(tag)
-    DNS.new(tag).to_url
-  end
-
-  def self.defaults=(val)
-    @@defaults = val
-  end
-
-  def self.defaults
-    @@defaults
-  rescue
-    {}
+  def self.alias(*_)
+    DNS.new(*_).to_url
   end
 
   def self.zone=(val)
