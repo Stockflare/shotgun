@@ -19,10 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = Gem::Requirement.new(">= 2.0.0")
 
-  spec.add_runtime_dependency %q<faraday>, ['~> 0.9']
-  spec.add_runtime_dependency %q<hashie>, ['~> 3.4']
-  spec.add_runtime_dependency %q<rack>, ['~> 1.6']
-
   spec.add_development_dependency %q<bundler>, ['~> 1.6']
   spec.add_development_dependency %q<rake>, ['~> 10.3']
   spec.add_development_dependency %q<rspec>, ['~> 3.0']
