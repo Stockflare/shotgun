@@ -21,6 +21,8 @@ module Shotgun
         when /json/ then parse_json_body response.body
         else response.body
         end
+      rescue
+        response.body
       end
 
       def body
