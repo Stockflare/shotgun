@@ -18,7 +18,7 @@ module Shotgun
 
       def parse!
         case content_type
-        when /json/ then parse_json_body response.body
+        when /json/ then parse_json_body(as_json(response.body))
         else response.body
         end
       rescue
@@ -36,15 +36,13 @@ module Shotgun
       end
 
       def parse_json_body(body)
-        response = as_json body
-        case response
+        case body
         when Hash
-          ::Hashie::Mash.new response
+          ::Hashie::Mash.new body
         when Array
-          response.collect { |el| ::Hashie::Mash.new el }
+          body.collect { |el| parse_json_body(el) }
         else
-          raise Errors::ResponseError.new,
-            "unexpected body of #{response.class.name}."
+          body
         end
       end
 
