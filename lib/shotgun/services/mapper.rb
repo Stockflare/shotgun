@@ -30,7 +30,7 @@ module Shotgun
         #   Retrieves the path for this service, with dot delimited suffixes.
         #   @return [string] a dot delimited service path, including suffixes.
         def _path(*suffixes)
-          ((suffixes || []).reverse + [_rel]).join('.')
+          ((suffixes || []).reverse + [_rel]).join('-')
         end
 
         # Retrieve the relative service path, excluding the base, containing
@@ -43,7 +43,7 @@ module Shotgun
         #
         # @return [string] a dot delimited relative service path.
         def _rel
-          _parts.slice(1..._parts.length).reverse.join('.')
+          _parts.slice(1..._parts.length).reverse.join('-')
         end
 
         def service(name)
